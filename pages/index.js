@@ -2,10 +2,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { ResponsiveCalendar } from '@nivo/calendar'
-
+import { useState, useEffect } from 'react';
 
 export default function Home() {
+  const [events, setEvents] = useState([{id: 1, summary: 'Loading...'}]);
 
+  useEffect(() => {
+    async function fetchEvents() {
+      const response = await fetch('/api/calendar');
+      const data = await response.json();
+      console.log(data)
+      setEvents(data.items);
+    }
+
+    fetchEvents();
+  }, []);
+  
   const data = [
     {
       "value": 299,
@@ -21,6 +33,14 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <div>
+          <h1>My Calendar Events</h1>
+          <ul>
+            {events.map((event) => (
+              <li key={event.id}>{event.summary}</li>
+            ))}
+          </ul>
+        </div>
         <ResponsiveCalendar
           data={data}
           from="2023-01-01"
