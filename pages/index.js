@@ -5,25 +5,25 @@ import { ResponsiveCalendar } from '@nivo/calendar'
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const [events, setEvents] = useState([{id: 1, summary: 'Loading...'}]);
+  // const [events, setEvents] = useState([{id: 1, summary: 'Loading...'}]);
 
-  useEffect(() => {
-    async function fetchEvents() {
-      const response = await fetch('/api/calendar');
-      const data = await response.json();
-      console.log(data)
-      setEvents(data.items);
-    }
+  // useEffect(() => {
+  //   async function fetchEvents() {
+  //     const response = await fetch('/api/calendar');
+  //     const data = await response.json();
+  //     // console.log(data)
+  //     setEvents(data);
+  //   }
 
-    fetchEvents();
-  }, []);
-  
-  const data = [
-    {
-      "value": 299,
-      "day": "2023-08-28"
-    }
-  ]
+  //   fetchEvents();
+  // }, []);
+
+  // const data = [
+  //   {
+  //     "value": 299,
+  //     "day": "2023-08-28"
+  //   }
+  // ]
   return (
     <div className={styles.container}>
       <Head>
@@ -35,13 +35,13 @@ export default function Home() {
       <main className={styles.main}>
         <div>
           <h1>My Calendar Events</h1>
-          <ul>
+          {/* <ul>
             {events.map((event) => (
               <li key={event.id}>{event.summary}</li>
             ))}
-          </ul>
+          </ul> */}
         </div>
-        <ResponsiveCalendar
+        {/* <ResponsiveCalendar
           data={data}
           from="2023-01-01"
           to="2023-12-31"
@@ -64,7 +64,7 @@ export default function Home() {
               itemDirection: 'right-to-left'
             }
           ]}
-        />
+        /> */}
 
       </main>
     </div>
