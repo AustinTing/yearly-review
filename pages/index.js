@@ -3,27 +3,15 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { ResponsiveCalendar } from '@nivo/calendar'
 import { useState, useEffect } from 'react';
+import { signOut, useSession } from 'next-auth/react'
 
-export default function Home() {
-  // const [events, setEvents] = useState([{id: 1, summary: 'Loading...'}]);
+import LoginRedirect from '../components/LoginRedirect';
 
-  // useEffect(() => {
-  //   async function fetchEvents() {
-  //     const response = await fetch('/api/calendar');
-  //     const data = await response.json();
-  //     // console.log(data)
-  //     setEvents(data);
-  //   }
-
-  //   fetchEvents();
-  // }, []);
-
-  // const data = [
-  //   {
-  //     "value": 299,
-  //     "day": "2023-08-28"
-  //   }
-  // ]
+export default function Home() { 
+  const { data: session, status } = useSession();
+  const handleSignOut = async () => {
+    await signOut();
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -31,7 +19,7 @@ export default function Home() {
         <meta name="description" content="My Yearly Review" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <LoginRedirect />
       <main className={styles.main}>
         <div>
           <h1>My Calendar Events</h1>
@@ -67,6 +55,9 @@ export default function Home() {
         /> */}
 
       </main>
+        {session && (
+          <button onClick={handleSignOut}>Sign Out</button>
+        )}
     </div>
   )
 }
